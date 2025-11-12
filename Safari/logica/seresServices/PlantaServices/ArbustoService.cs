@@ -15,6 +15,8 @@ namespace Safari.services.seresServices.PlantaServices
     {
         //Nos va ayudar a asignar un id unico a cada arbusto
         private int id;
+        private string repre;
+
         //Necesitamos el proveedor de numeros aleatorios
         IRandomProvider randomProvider;
         //Constructor con el proveedor de numeros aleatorios
@@ -28,16 +30,17 @@ namespace Safari.services.seresServices.PlantaServices
             return ser;
         }
 
-        public Ser nacer(Object[,] tablero,Parametro parametroArbusto)
+        public Ser nacer(Object[,] tablero, String repre, int[] parametros)
         {
             this.id++;
+            this.repre = repre; 
             int[] posicionNacimiento = Tools.buscarSitioVacioAleatorio(randomProvider, tablero);
-            return new Arbusto(id, posicionNacimiento, (ParametroArbusto)parametroArbusto);
+            return new Arbusto(id, parametros[0], repre, posicionNacimiento);
         }
 
 
         //En caso de que no haya sitio alrededor del padre devolveremos null
-        public Ser reproducirse(Ser ser,Parametro parametroArbusto,Object[,] tablero)
+        public Ser reproducirse(Ser ser, int[] parametro,Object[,] tablero)
         {
             int posFila = ser.getPosicion()[0];
             int posColumna = ser.getPosicion()[1];
@@ -45,7 +48,7 @@ namespace Safari.services.seresServices.PlantaServices
             if (posNacimiento!= null)
             {
                 this.id++;
-                return new Arbusto(id, posNacimiento, (ParametroArbusto)parametroArbusto);
+                return new Arbusto(id, parametro[0],repre, posNacimiento);
             }
 
             return null;    
@@ -56,8 +59,6 @@ namespace Safari.services.seresServices.PlantaServices
         }
 
         //¡¡¡¡¡¡METODOS PRIVADOS!!!!!!
-
-
 
     }
 }

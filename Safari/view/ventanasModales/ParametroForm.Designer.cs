@@ -60,7 +60,7 @@ namespace Safari.view.ventanasModales
             this.nVGacela = new System.Windows.Forms.NumericUpDown();
             this.lVGacela = new System.Windows.Forms.Label();
             this.tablaHmGacela = new System.Windows.Forms.TableLayoutPanel();
-            this.nMhGacela = new System.Windows.Forms.NumericUpDown();
+            this.nHmGacela = new System.Windows.Forms.NumericUpDown();
             this.lMhGacela = new System.Windows.Forms.Label();
             this.tablaTrGacela = new System.Windows.Forms.TableLayoutPanel();
             this.nTrGacela = new System.Windows.Forms.NumericUpDown();
@@ -99,7 +99,7 @@ namespace Safari.view.ventanasModales
             this.tablaVGacela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nVGacela)).BeginInit();
             this.tablaHmGacela.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nMhGacela)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nHmGacela)).BeginInit();
             this.tablaTrGacela.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nTrGacela)).BeginInit();
             this.panelCantidades.SuspendLayout();
@@ -170,6 +170,7 @@ namespace Safari.view.ventanasModales
             this.botonGuardar.TabIndex = 1;
             this.botonGuardar.Text = "Guardar parametros";
             this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // panelParametos
             // 
@@ -209,6 +210,7 @@ namespace Safari.view.ventanasModales
             this.nTamaño.Name = "nTamaño";
             this.nTamaño.Size = new System.Drawing.Size(120, 31);
             this.nTamaño.TabIndex = 3;
+            this.nTamaño.Maximum = 20;
             // 
             // lTamaño
             // 
@@ -458,7 +460,7 @@ namespace Safari.view.ventanasModales
             this.tablaHmGacela.ColumnCount = 2;
             this.tablaHmGacela.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tablaHmGacela.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tablaHmGacela.Controls.Add(this.nMhGacela, 1, 0);
+            this.tablaHmGacela.Controls.Add(this.nHmGacela, 1, 0);
             this.tablaHmGacela.Controls.Add(this.lMhGacela, 0, 0);
             this.tablaHmGacela.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tablaHmGacela.Location = new System.Drawing.Point(803, 3);
@@ -468,13 +470,13 @@ namespace Safari.view.ventanasModales
             this.tablaHmGacela.Size = new System.Drawing.Size(394, 178);
             this.tablaHmGacela.TabIndex = 2;
             // 
-            // nMhGacela
+            // nHmGacela
             // 
-            this.nMhGacela.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.nMhGacela.Location = new System.Drawing.Point(235, 73);
-            this.nMhGacela.Name = "nMhGacela";
-            this.nMhGacela.Size = new System.Drawing.Size(120, 31);
-            this.nMhGacela.TabIndex = 0;
+            this.nHmGacela.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.nHmGacela.Location = new System.Drawing.Point(235, 73);
+            this.nHmGacela.Name = "nHmGacela";
+            this.nHmGacela.Size = new System.Drawing.Size(120, 31);
+            this.nHmGacela.TabIndex = 0;
             // 
             // lMhGacela
             // 
@@ -721,7 +723,7 @@ namespace Safari.view.ventanasModales
             ((System.ComponentModel.ISupportInitialize)(this.nVGacela)).EndInit();
             this.tablaHmGacela.ResumeLayout(false);
             this.tablaHmGacela.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nMhGacela)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nHmGacela)).EndInit();
             this.tablaTrGacela.ResumeLayout(false);
             this.tablaTrGacela.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nTrGacela)).EndInit();
@@ -780,7 +782,7 @@ namespace Safari.view.ventanasModales
         private NumericUpDown nVGacela;
         private Label lVGacela;
         private TableLayoutPanel tablaHmGacela;
-        private NumericUpDown nMhGacela;
+        private NumericUpDown nHmGacela;
         private Label lMhGacela;
         private TableLayoutPanel tablaArbusto;
         private TableLayoutPanel tablaTrArbusto;

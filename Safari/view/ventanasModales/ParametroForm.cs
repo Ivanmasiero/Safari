@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Safari.controller;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,10 +13,33 @@ namespace Safari.view.ventanasModales
 {
     public partial class ParametroForm : Form
     {
-        public ParametroForm()
+        private bool construido;
+        private Controlador controlador;
+        public ParametroForm(int[] parametrosSafari, int[] parametrosLeon, int[] parametrosGacela, int[] parametrosArbusto, bool construido, Controlador controlador)
         {
             InitializeComponent();
-            
+            // Cargar los parámetros en los controles correspondientes
+            nCantidadLeones.Value = parametrosSafari[0];
+            nCantidadGacela.Value = parametrosSafari[1];
+            nCantidadArbustos.Value = parametrosSafari[2];
+            nTamaño.Value = parametrosSafari[3];
+            nTrLeon.Value = parametrosLeon[0];
+            nHmLeon.Value = parametrosLeon[1];
+            nVLeon.Value = parametrosLeon[2];
+            nTrGacela.Value = parametrosGacela[0];
+            nHmGacela.Value = parametrosGacela[1];
+            nVGacela.Value = parametrosGacela[2];
+            nTrArbusto.Value = parametrosArbusto[0];
+            this.construido = construido;
+            this.controlador = controlador;
+            if (construido)
+            {
+                // Deshabilitar los controles relacionados con el tamaño del safari
+                nTamaño.Enabled = false;
+                nCantidadLeones.Enabled = false;
+                nCantidadGacela.Enabled = false;
+                nCantidadArbustos.Enabled = false;
+            }
         }
 
         private void dgwParametros_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -58,30 +82,50 @@ namespace Safari.view.ventanasModales
 
         }
 
-     
-
-        private void botonGuardar_Click_1(object sender, EventArgs e)
+        private void botonGuardar_Click(object sender, EventArgs e)
         {
+            //control de excepcion
+            if (!cantidadValida())
+            {
+                return; // Salir si la cantidad no es válida
+            }
             //Parametros del safari
-            int CantidadGacelas = (int)nCantidadGacela.Value;
-            int CantidadLeones = (int)nCantidadLeones.Value;
-            int CantidadArbustos = (int)nCantidadArbustos.Value;
-            int tamaño = (int)nTamaño.Value;
-            //Parametros de las gacelas
-            int trGacela = (int)nTrGacela.Value;
-            int hmGacela = (int)nMhGacela.Value;
-            int vGacela = (int)nVGacela.Value;
-            //Parametros de los leones
-            int trLeon = (int)nTrLeon.Value;
-            int hmLeon = (int)nHmLeon.Value;
-            int vLeon = (int)nVLeon.Value;
-            //Parametros de los arbustos
-            int trArbusto = (int)nTrArbusto.Value;
-            //guardamos los parametros en arrays
-            int[] parametrosSafari = { CantidadLeones, CantidadGacelas, CantidadArbustos, tamaño };
-            int[] parametrosGacela = { trGacela, vGacela, hmGacela };
-            int[] parametrosLeon = { trLeon, vLeon, hmLeon };
-            int[] parametrosArbusto = { trArbusto };
+            controlador.setCantidadArbustos((int)nCantidadArbustos.Value);
+            controlador.setCantidadGacelas((int)nCantidadGacela.Value);
+            controlador.setCantidadLeones((int)nCantidadLeones.Value);
+            controlador.setTablero(new object[(int)nTamaño.Value, (int)nTamaño.Value]);
+
+            //Parametros seres vivos
+            controlador.setParametroGacela(new int[] { (int)nTrGacela.Value, (int)nHmGacela.Value, (int)nVGacela.Value });
+            controlador.setParametroLeon(new int[] { (int)nTrLeon.Value, (int)nHmLeon.Value, (int)nVLeon.Value });
+            controlador.setParametroArbusto(new int[] { (int)nTrArbusto.Value });
+
+            
+            
+            //Cerramos la ventana
+            this.Close();
+        }
+        private bool cantidadValida()
+        {
+            int totalCeldas = (int)(nTamaño.Value * nTamaño.Value);
+            int sumaActual = (int)(nCantidadLeones.Value + nCantidadGacela.Value + nCantidadArbustos.Value);
+
+            if (sumaActual > totalCeldas)
+            {
+               
+
+                // Ajustamos el valor que acaba de provocar el exceso
+                int exceso = sumaActual - totalCeldas;
+                
+                MessageBox.Show(
+                    $"La suma total de seres no puede superar el número de celdas ({totalCeldas}).",
+                    "Límite excedido",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return false;
+            }
+            return true;
         }
     }
 }

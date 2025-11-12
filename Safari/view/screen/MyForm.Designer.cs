@@ -98,6 +98,7 @@ namespace Safari
             // 
             // botonModoLento
             // 
+            this.botonModoLento.Enabled = false;
             this.botonModoLento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.botonModoLento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.botonModoLento.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -111,7 +112,8 @@ namespace Safari
             this.botonModoLento.Click += new System.EventHandler(this.botonModoLento_Click);
             // 
             // botonStop
-            // 
+            //
+            this.botonStop.Enabled = false;
             this.botonStop.BackColor = System.Drawing.Color.Red;
             this.botonStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.botonStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -125,7 +127,8 @@ namespace Safari
             this.botonStop.Click += new System.EventHandler(this.botonStop_Click);
             // 
             // botonPause
-            // 
+            //
+            this.botonPause.Enabled = false;
             this.botonPause.BackColor = System.Drawing.Color.Cyan;
             this.botonPause.Dock = System.Windows.Forms.DockStyle.Fill;
             this.botonPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -139,7 +142,8 @@ namespace Safari
             this.botonPause.Click += new System.EventHandler(this.botonPause_Click);
             // 
             // botonPlay
-            // 
+            //
+            this.botonPlay.Enabled = false;
             this.botonPlay.BackColor = System.Drawing.Color.Green;
             this.botonPlay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.botonPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -164,6 +168,7 @@ namespace Safari
             this.botonNextStep.Size = new System.Drawing.Size(276, 95);
             this.botonNextStep.TabIndex = 2;
             this.botonNextStep.Text = "Next Step";
+            this.botonNextStep.Enabled = false;
             this.botonNextStep.UseVisualStyleBackColor = false;
             this.botonNextStep.Click += new System.EventHandler(this.botonNextStep_Click);
             // 

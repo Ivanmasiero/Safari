@@ -19,6 +19,17 @@ namespace Safari.model.safariData
         int cantidadGacela;
         int cantidadArbusto;
 
+        //constructor vacio
+        public Safari() 
+        {
+            this.seresVivos = new List<Ser>();
+            this.seresMuertos = new List<Ser>();
+            this.tablero = new object[0,0];
+            this.cantidadLeon = 0;
+            this.cantidadGacela = 0;
+            this.cantidadArbusto = 0;
+        }
+
         //constructor con atributos
         public Safari(int cantidadLeon, int cantidadGacela, int cantidadArbusto, Object[,] tablero) 
         {

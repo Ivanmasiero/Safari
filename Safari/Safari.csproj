@@ -49,8 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="controller\TestSafariService.cs" />
-    <Compile Include="model\interfaz\IMovible.cs" />
+    <Compile Include="controller\Controlador.cs" />
+    <Compile Include="logica\viewService\TestSafariService.cs" />
     <Compile Include="model\parametro\data\Parametro.cs" />
     <Compile Include="model\parametro\data\ParametroAnimal.cs" />
     <Compile Include="model\parametro\data\ParametroArbusto.cs" />
@@ -63,33 +63,31 @@
     <Compile Include="model\parametro\system\ParametroSafari.cs" />
     <Compile Include="model\safariData\Safari.cs" />
     <Compile Include="model\seres\animal\Animal.cs" />
-    <Compile Include="model\seres\planta\Arbusto.cs" />
-    <Compile Include="model\seres\animal\Carnivoro.cs" />
-    <Compile Include="model\seres\animal\Gacela.cs" />
-    <Compile Include="model\seres\animal\Herviboro.cs" />
-    <Compile Include="model\interfaz\IComestible.cs" />
-    <Compile Include="model\seres\animal\Leon.cs" />
-    <Compile Include="model\seres\animal\LeonPrueba.cs" />
+    <Compile Include="model\seres\planta\especie\Arbusto.cs" />
+    <Compile Include="model\seres\animal\tipo\Carnivoro.cs" />
+    <Compile Include="model\seres\animal\especie\Gacela.cs" />
+    <Compile Include="model\seres\animal\tipo\Herviboro.cs" />
+    <Compile Include="model\seres\animal\especie\Leon.cs" />
     <Compile Include="model\seres\planta\Planta.cs" />
     <Compile Include="model\seres\Ser.cs" />
-    <Compile Include="view\MyForm.cs">
+    <Compile Include="view\screen\MyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\MyForm.Designer.cs">
+    <Compile Include="view\screen\MyForm.Designer.cs">
       <DependentUpon>MyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="services\interfaces\IAnimalService.cs" />
-    <Compile Include="services\interfaces\IRandomProvider.cs" />
-    <Compile Include="services\providers\RandomProvider.cs" />
-    <Compile Include="services\seresServices\AnimalesServices\GacelaService.cs" />
-    <Compile Include="services\seresServices\AnimalesServices\LeonService.cs" />
-    <Compile Include="services\interfaces\ISafariService.cs" />
-    <Compile Include="services\interfaces\ISerVivoService.cs" />
-    <Compile Include="services\seresServices\PlantaServices\ArbustoService.cs" />
-    <Compile Include="services\tools\Tools.cs" />
-    <Compile Include="services\tools\ToolsAnimales.cs" />
+    <Compile Include="logica\seresServices\AnimalesServices\IAnimalService.cs" />
+    <Compile Include="logica\providers\IRandomProvider.cs" />
+    <Compile Include="logica\providers\RandomProvider.cs" />
+    <Compile Include="logica\seresServices\AnimalesServices\GacelaService.cs" />
+    <Compile Include="logica\seresServices\AnimalesServices\LeonService.cs" />
+    <Compile Include="logica\viewService\ISafariService.cs" />
+    <Compile Include="logica\seresServices\ISerVivoService.cs" />
+    <Compile Include="logica\seresServices\PlantaServices\ArbustoService.cs" />
+    <Compile Include="logica\tools\Tools.cs" />
+    <Compile Include="logica\tools\ToolsAnimales.cs" />
     <Compile Include="view\ventanasModales\ParametroForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,7 +103,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="view\MyForm.resx">
+    <EmbeddedResource Include="view\screen\MyForm.resx">
       <DependentUpon>MyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\ventanasModales\ParametroForm.resx">
@@ -124,6 +122,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="resources\img\arbusto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\img\gacela.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="resources\img\leon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

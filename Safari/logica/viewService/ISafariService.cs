@@ -17,14 +17,8 @@ namespace Safari.services.interfaces
         void start();
         //Método que avanzará el safari un paso
         void nextStep();
-        //Método que pondrá en marcha el safari hasta que se pause, pare o termine
-        void play();
-        //Método que pausará el safari
-        void pause();
-        //Método que detendrá el safari
-        void stop();
-        //metodo que terminara el safari (instancia)
-        void end();
+        //Método que reiniciará el safari a su estado inicial
+        void reset();
         //Método que cambiará los parámetros del safari en ejecución
         void changeParameters(int[] parametrosSafari, int[] parametrosGacela, int[] parametrosLeon, int[] parametrosArbusto);
     }

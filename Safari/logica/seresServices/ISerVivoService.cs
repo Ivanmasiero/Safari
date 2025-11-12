@@ -14,11 +14,11 @@ namespace Safari.services.interfaces
         Ser morir(Ser ser);
         //Generaremos un nuevo ser vivo en una posicion aleatoria, para ello necesitaré el tablero del safari para tener en cuenta las posiciones ocupadas
         // y los parametros para determinar con que atributos debe nacer el ser
-        Ser nacer(Object[,] tablero, Parametro parametro);
+        Ser nacer(Object[,] tablero, String repre, int[] parametros);
 
         //Generaremos un nuevo ser vivo a partir de otro, le pasamos un parametro para que sepa las estadisticas con las que deba nacer el hijo y el tablero
         //como contexto para buscar una posicion libre alrededor del padre
-        Ser reproducirse(Ser ser, Parametro parametro, Object[,] tablero);
+        Ser reproducirse(Ser ser, int[]parametro , Object[,] tablero);
         void resetId();
     }
 }

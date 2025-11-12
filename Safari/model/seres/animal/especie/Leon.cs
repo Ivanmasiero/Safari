@@ -14,7 +14,7 @@ namespace Safari.model.seres
         private ParametroLeon parametroLeon;
 
         //Constructor con todos los atributos
-        public Leon(int id, string estado, int tiempoReproduccion, string representacion, int[] posicion, int hambre, int velocidad)
+        public Leon(int id, int tiempoReproduccion, string representacion, int[] posicion, int hambre, int velocidad)
             : base(id, tiempoReproduccion, representacion, posicion, hambre, velocidad)
         {
         }

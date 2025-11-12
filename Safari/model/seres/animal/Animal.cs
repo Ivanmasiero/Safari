@@ -1,4 +1,4 @@
-﻿using Safari.model.interfaz;
+﻿
 using Safari.model.seres;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Safari.model
 {
-    public abstract class Animal : Ser, IMovible
+    public abstract class Animal : Ser
     {
         //Nos permitira saber cuantos turnos lleva sin comer el animal, empieza en 0 y va aumentando cada turno que pasa sin comer
         private int hambre = 0;
