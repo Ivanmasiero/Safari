@@ -25,11 +25,12 @@ namespace Safari
         //variable que nos dira si el safari ha sido construido o no
         bool construido = false;
         //creamos un cache para las imágenes
+        int dias = 0;
         private Dictionary<string, Image> cacheImagenes;
 
         public MyForm()
         {
-            
+
             InitializeComponent();
             controlador = new Controlador();
 
@@ -43,6 +44,7 @@ namespace Safari
                     new ColumnStyle(SizeType.Percent, 100F / 7F));
             }
 
+
             // Los botones deben ocupar toda su celda
             foreach (Control c in panelBotonera.Controls)
                 c.Dock = DockStyle.Fill;
@@ -53,9 +55,9 @@ namespace Safari
             };
             //inicializamos el cache de imágenes
             cacheImagenes = new Dictionary<string, Image>();
-            
-                
-            
+
+
+
 
 
         }
@@ -137,8 +139,10 @@ namespace Safari
 
         private void botonNextStep_Click(object sender, EventArgs e)
         {
-          
+
             controlador.nextStep();
+            dias++;
+            this.labelDiasCalculado.Text = dias.ToString();
             panelMapa.Invalidate();
         }
 
@@ -167,9 +171,19 @@ namespace Safari
                 {
                     while (isPlaying)
                     {
+
                         controlador.nextStep();
+                        dias++;
+                        // Actualizamos la interfaz de usuario en el hilo principal
+                        this.Invoke(new Action(() =>
+                        {
+                            this.labelDiasCalculado.Text = dias.ToString();
+
+                            panelMapa.Invalidate();
+                            comprobarVivos(sender, e);
+                            comprobarSoloArbustos(sender, e);
+                        }));
                         await Task.Delay(1000); //esperamos 500 milisegundos entre cada paso
-                        panelMapa.Invalidate();
                     }
                 }
                 );
@@ -209,6 +223,8 @@ namespace Safari
             construido = false;
             isPlaying = false;
             controlador.reset();
+            dias = 0;
+            labelDiasCalculado.Text = dias.ToString();
         }
 
         private async void botonModoLento_Click(object sender, EventArgs e)
@@ -230,17 +246,27 @@ namespace Safari
             //hasta que no se pare no se detendrá
             if (isPlaying)
             {
-                //ejecutamos el play en un hilo aparte para no bloquear la interfaz
+
                 Task.Run(async () =>
                 {
                     while (isPlaying)
                     {
+
                         controlador.nextStep();
+                        dias++;
+                        // Actualizamos la interfaz de usuario en el hilo principal
+                        this.Invoke(new Action(() =>
+                        {
+                            this.labelDiasCalculado.Text = dias.ToString();
+                            comprobarVivos(sender, e);
+                            comprobarSoloArbustos(sender, e);
+                            panelMapa.Invalidate();
+                        }));
                         await Task.Delay(2000); //esperamos 2 segundos entre cada paso
-                        panelMapa.Invalidate();
                     }
                 });
             }
+
         }
         private void botonParametro_Click(object sender, EventArgs e)
         {
@@ -248,12 +274,12 @@ namespace Safari
             parametroForm.ShowDialog();
         }
 
-       
+
 
         private void toolPlay_Click(object sender, EventArgs e)
         {
             isPlaying = true;
-            botonStart.Enabled = false;     
+            botonStart.Enabled = false;
             botonNextStep.Enabled = false;
             botonPlay.Enabled = false;
             toolPlay.Enabled = false;
@@ -275,8 +301,16 @@ namespace Safari
                     while (isPlaying)
                     {
                         controlador.nextStep();
+                        dias++;
+                        // Actualizamos la interfaz de usuario en el hilo principal
+                        this.Invoke(new Action(() =>
+                        {
+                            this.labelDiasCalculado.Text = dias.ToString();
+                            comprobarVivos(sender, e);
+                            comprobarSoloArbustos(sender, e);
+                            panelMapa.Invalidate();
+                        }));
                         await Task.Delay(1000); //esperamos 500 milisegundos entre cada paso
-                        panelMapa.Invalidate();
                     }
                 }
                 );
@@ -317,6 +351,8 @@ namespace Safari
             construido = false;
             isPlaying = false;
             controlador.reset();
+            dias = 0;
+            labelDiasCalculado.Text = dias.ToString();
 
         }
 
@@ -375,12 +411,13 @@ namespace Safari
                     botonStop_Click(sender, e);
                     toolStart_Click(sender, e);
                 }
-            }else
-            {
-                    toolStart_Click(sender, e);
             }
-            
-               
+            else
+            {
+                toolStart_Click(sender, e);
+            }
+
+
         }
 
         private void iniciarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -489,5 +526,82 @@ namespace Safari
             AyudaForm ayudaForm = new AyudaForm();
             ayudaForm.Show();
         }
+        private void comprobarVivos(object sender, EventArgs e)
+        {
+            //comprobamos que haya animales vivos para seguir
+            if (controlador.getSeresVivos().Count < 1)
+            {
+                //abrimos un mensaje indicando que no hay animales vivos y le decimos al usuario si quiere reiniciar el safari o salir
+                var result = MessageBox.Show("No hay animales vivos en el safari. ¿Quieres reiniciar el safari?", "Safari terminado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    // Reiniciar el safari
+                    toolStop_Click(sender, e);
+                    toolStart_Click(sender, e);
+                }
+                else
+                {
+                    //preguntamos si quiere salir
+                    var resultExit = MessageBox.Show("¿Quieres salir de la aplicacion?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultExit == DialogResult.Yes)
+                    {
+                        //preguntamos si esta seguro de salir
+                        var resultConfirm = MessageBox.Show("¿Estás seguro de que quieres salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (resultConfirm == DialogResult.Yes)
+                        {
+                            Application.Exit();
+                        }
+                    }
+                }
+
+            }
+        }
+        private void comprobarSoloArbustos(object sender, EventArgs e)
+        {
+            //comprobamos si la lista esta vacia
+            if (controlador.getSeresVivos().Count < 1)
+            {
+                return; // Si no hay seres vivos, no hay necesidad de comprobar
+            }
+            bool hayAnimal = false;
+            //recorremos la lista de seres vivos y comprobamos si solo quedan arbustos
+            foreach (Ser ser in controlador.getSeresVivos())
+            {
+                //guardamos el tipo del ser
+                Type tipoSer = ser.GetType();
+                //comprobamos si el ser puede ser casteado a Animal
+                if (typeof(Animal).IsAssignableFrom(tipoSer))
+                {
+                    hayAnimal = true;
+                    break; // Si encontramos un animal salimos del bucle
+                }
+            }
+            if (!hayAnimal)
+            {
+                //Mostramos al usuario un mensaje indicando que solo quedan arbustos y se reiniciará el safari
+                var result = MessageBox.Show("Solo quedan arbustos en el safari. ¿Quieres reiniciar el safari?", "Safari terminado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    // Reiniciar el safari
+                    toolStop_Click(sender, e);
+                    toolStart_Click(sender, e);
+                }
+                else
+                {
+                    //preguntamos si quiere salir
+                    var resultExit = MessageBox.Show("¿Quieres salir de la aplicacion?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultExit == DialogResult.Yes)
+                    {
+                        //preguntamos si esta seguro de salir
+                        var resultConfirm = MessageBox.Show("¿Estás seguro de que quieres salir?", "Salir", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (resultConfirm == DialogResult.Yes)
+                        {
+                            Application.Exit();
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

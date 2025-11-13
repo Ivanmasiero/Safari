@@ -42,6 +42,7 @@ namespace Safari
             this.botonNextStep = new System.Windows.Forms.Button();
             this.botonStart = new System.Windows.Forms.Button();
             this.botonParametro = new System.Windows.Forms.Button();
+            this.panelDias = new System.Windows.Forms.Panel();
             this.header = new System.Windows.Forms.Panel();
             this.labelTituloSafari = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
@@ -66,11 +67,17 @@ namespace Safari
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.acercaDeSafariToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlesManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelPregunta = new System.Windows.Forms.Label();
+            this.labelDias = new System.Windows.Forms.Label();
+            this.labelDiasCalculado = new System.Windows.Forms.Label();
             this.PanelContenedor.SuspendLayout();
             this.panelBotonera.SuspendLayout();
+            this.panelDias.SuspendLayout();
             this.header.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.menu.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PanelContenedor
@@ -228,9 +235,19 @@ namespace Safari
             this.botonParametro.UseVisualStyleBackColor = false;
             this.botonParametro.Click += new System.EventHandler(this.botonParametro_Click);
             // 
+            // panelDias
+            // 
+            this.panelDias.Controls.Add(this.tableLayoutPanel1);
+            this.panelDias.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelDias.Location = new System.Drawing.Point(0, 0);
+            this.panelDias.Name = "panelDias";
+            this.panelDias.Size = new System.Drawing.Size(2318, 100);
+            this.panelDias.TabIndex = 1;
+            // 
             // header
             // 
             this.header.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.header.Controls.Add(this.panelDias);
             this.header.Controls.Add(this.labelTituloSafari);
             this.header.Dock = System.Windows.Forms.DockStyle.Top;
             this.header.Location = new System.Drawing.Point(0, 82);
@@ -466,6 +483,64 @@ namespace Safari
             this.controlesManualToolStripMenuItem.Text = "Controles/Manual";
             this.controlesManualToolStripMenuItem.Click += new System.EventHandler(this.controlesManualToolStripMenuItem_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 6;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.40897F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.8956F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.4176F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8.886971F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 9.059534F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.33132F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.labelPregunta, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelDias, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelDiasCalculado, 4, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(2318, 100);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // labelPregunta
+            // 
+            this.labelPregunta.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelPregunta.AutoSize = true;
+            this.labelPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPregunta.Location = new System.Drawing.Point(368, 35);
+            this.labelPregunta.Name = "labelPregunta";
+            this.labelPregunta.Size = new System.Drawing.Size(370, 29);
+            this.labelPregunta.TabIndex = 0;
+            this.labelPregunta.Text = "¿A cuántos dias podrás llegar?";
+            // 
+            // labelDias
+            // 
+            this.labelDias.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelDias.AutoSize = true;
+            this.labelDias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDias.Location = new System.Drawing.Point(1401, 35);
+            this.labelDias.Name = "labelDias";
+            this.labelDias.Size = new System.Drawing.Size(79, 29);
+            this.labelDias.TabIndex = 1;
+            this.labelDias.Text = "Dias: ";
+            // 
+            // labelDiasCalculado
+            // 
+            this.labelDiasCalculado.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelDiasCalculado.AutoSize = true;
+            this.labelDiasCalculado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDiasCalculado.Location = new System.Drawing.Point(1635, 35);
+            this.labelDiasCalculado.Name = "labelDiasCalculado";
+            this.labelDiasCalculado.Size = new System.Drawing.Size(27, 29);
+            this.labelDiasCalculado.TabIndex = 2;
+            this.labelDiasCalculado.Text = "0";
+            // 
             // MyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
@@ -481,11 +556,14 @@ namespace Safari
             this.PanelContenedor.PerformLayout();
             this.panelBotonera.ResumeLayout(false);
             this.panelBotonera.PerformLayout();
+            this.panelDias.ResumeLayout(false);
             this.header.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -525,5 +603,10 @@ namespace Safari
         private ToolStripButton toolExit;
         private ToolStripButton toolStart;
         private ToolStripMenuItem salirToolStripMenuItem;
+        private Panel panelDias;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label labelPregunta;
+        private Label labelDias;
+        private Label labelDiasCalculado;
     }
 }
