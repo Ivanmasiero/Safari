@@ -54,10 +54,10 @@ namespace Safari.controller
             parametroGacela = new int[] { 4, 3, 5 }; //tiempo de reproduccion por defecto 4, max hambre 3, velocidad 5  
             parametroLeon = new int[] { 6, 3, 5 }; //tiempo de reproduccion por defecto 6, max hambre 3, velocidad 5
             //parametros del safari por defecto
-            int filas = 5;
-            int columnas = 5;
-            int cantidadLeones = 1;//(filas * columnas * 3) / 100;
-            int cantidadGacelas = (filas * columnas * 10) / 100;
+            int filas =  10;
+            int columnas = 10;
+            int cantidadLeones = (filas * columnas * 3) / 100;
+            int cantidadGacelas =  (filas * columnas * 10) / 100;
             int cantidadArbustos = (filas * columnas * 35) / 100;
             controlador.setCantidadLeones(cantidadLeones);
             controlador.setCantidadGacelas(cantidadGacelas);
@@ -132,54 +132,33 @@ namespace Safari.controller
             periodoDeReproduccion();
 
         }
-
-
-        /*public void play()
-        {
-           
-            bool isPlaying = true;
-            
-            //hasta que no se pare no se detendrá
-            if (isPlaying)
-            {
-                //ejecutamos el play en un hilo aparte para no bloquear la interfaz
-                Task.Run(async () =>
-                {
-                    while (isPlaying)
-                    {
-                        if (soloHayplantas()) isPlaying = false;
-                        if (tableroVacio()) isPlaying = false;
-                        nextStep();
-                        await Task.Delay(1000); //esperamos 1 segundo entre cada paso
-                        refresh?.Invoke();
-
-                    }
-                }
-                );
-            }
-        }
-        */
         public void start()
         {
 
             //nacimiento de arbustos hasta la cantidad por defecto
             for (int i = 0; i < controlador.getCantidadArbustos(); i++)
             {
+                
                 Ser arbusto = arbustoService.nacer(controlador.getTablero(), "resources/img/arbusto.png", parametroArbusto); //tiempo de reproduccion por defecto 2
                 añadirSer(arbusto, controlador.getSeresVivos());
+                
             }
             //nacimiento de gacelas hasta la cantidad por defecto
             for (int i = 0; i < controlador.getCantidadGacelas(); i++)
             {
+                
                 Ser gacela = (Gacela)gacelaService.nacer(controlador.getTablero(), "resources/img/gacela.png", parametroGacela);
                 añadirSer(gacela, controlador.getSeresVivos());
+                
             }
             //nacimiento de leones hasta la cantidad indicada en el parametro
             for (int i = 0; i < controlador.getCantidadLeones(); i++)
             {
+               
                 //tiempo de reproduccion por defecto 6, representacion "LEON", max hambre 3, velocidad 5
                 Ser leon = (Leon)leonService.nacer(controlador.getTablero(), "resources/img/leon.png", parametroLeon);
                 añadirSer(leon, controlador.getSeresVivos());
+               
             }
         }
 
@@ -198,15 +177,6 @@ namespace Safari.controller
 
         //¡¡¡¡¡¡METODOS PRIVADOS!!!!!!
 
-        public async Task nextStepAsync()
-        {
-            hambreAnimales();
-            await movimientoAnimalesAsync();
-            seresEnPeriodoDeGestacion();
-            periodoDeReproduccion();
-            //mostrarTablero();
-
-        }
 
         /*
          * método para gestionar el periodo de reproducción de los seres vivos, decrementando su tiempo de reproducción y 
@@ -307,38 +277,11 @@ namespace Safari.controller
             foreach (Ser comida in seresComidos)
             {
                 controlador.getSeresVivos().Remove(comida);
+                controlador.getSeresMuertos().Add(comida);
             }
         }
 
-        //movimiento de los animales, de forma asíncrona para ir moviendo uno a uno los animales con delay
-        private async Task movimientoAnimalesAsync()
-        {
-
-            //creamos una lista auxiliar para evitar la modificación de la colección mientras se itera sobre ella
-            List<Ser> seresComidos = new List<Ser>();
-            foreach (Ser ser in controlador.getSeresVivos())
-            {
-                //quiero un delay por cada animales que se mueva para poder ver mejor el movimiento en consola
-                await Task.Delay(1000);
-                Type tipoSer = ser.GetType();
-                if (servicesPorTipoAnimal.TryGetValue(tipoSer, out var service))
-                {
-                    //aumentamos el hambre del animal antes de moverse porque si come se reiniciará a 0
-                    ((Animal)ser).setHambre(((Animal)ser).getHambre() + 1);
-                    service.moverse(controlador.getTablero(), ser, (comida) =>
-                    {
-                        seresComidos.Add(comida);
-                    });
-                    Console.Clear();
-                    mostrarTablero();
-                }
-            }
-            //eliminamos los seres comidos de la lista de seres vivos del safari
-            foreach (Ser comida in seresComidos)
-            {
-                controlador.getSeresVivos().Remove(comida);
-            }
-        }
+      
         //método para añadir un ser al safari, actualizando la lista y el tablero
         private void añadirSer(Ser ser, List<Ser> lista)
         {
@@ -373,62 +316,7 @@ namespace Safari.controller
                 }
             }
         }
-        //método para mostrar el tablero en consola
-        private void mostrarTablero()
-        {
-            for (int i = 0; i < controlador.getTablero().GetLength(0); i++)
-            {
-                for (int j = 0; j < controlador.getTablero().GetLength(1); j++)
-                {
-                    object celda = controlador.getTablero()[i, j];
-                    if (celda == null)
-                    {
-                        Console.Write("[------] ");
-                    }
-                    else
-                    {
-                        Console.Write("[" + celda + "] ");
-                    }
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine("---------------------");
-        }
-        //nos servirá para comprobar si en el tablero solo quedan plantas
-        private bool soloHayplantas()
-        {
-            for (int i = 0; i < getTablero().GetLength(0); i++)
-            {
-                for (int j = 0; j < getTablero().GetLength(1); j++)
-                {
-                    object celda = getTablero()[i, j];
-                    if (celda != null)
-                    {
-                        if (typeof(Animal).IsAssignableFrom(celda.GetType())) //si hay algun animal
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-            /*foreach (Ser ser in controlador.getSeresVivos())
-            {
-                if (typeof(Animal).IsAssignableFrom(ser.GetType())) //si hay algun animal
-                {
-                    return false;
-                }
-            }
-            return true;
-            */
-        }
-        //nos servirá para comprobar si el tablero está vacío
-        private bool tableroVacio()
-        {
-            return controlador.getSeresVivos().Count == 0;
-        }
-
-        //datos que necesita la vista
+        //¡¡¡¡ Datos para la vista !!!!
         public object[,] getTablero()
         {
             return controlador.getTablero();

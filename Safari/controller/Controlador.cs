@@ -97,7 +97,7 @@ namespace Safari.controller
         }
 
         //COMUNICACIÓN MODELO DE DATOS CON SERVICIOS Y VISTA!!!!!!!!!!!!!!!!!!!!!!
-        //único getter que necesita la vista para pintar el tablero
+        
         public object[,] getTablero()
         {
             return this.safari.getTablero();

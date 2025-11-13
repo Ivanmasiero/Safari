@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controller\Controlador.cs" />
-    <Compile Include="logica\viewService\TestSafariService.cs" />
+    <Compile Include="logica\mainService\TestSafariService.cs" />
     <Compile Include="model\parametro\data\Parametro.cs" />
     <Compile Include="model\parametro\data\ParametroAnimal.cs" />
     <Compile Include="model\parametro\data\ParametroArbusto.cs" />
@@ -70,12 +70,6 @@
     <Compile Include="model\seres\animal\especie\Leon.cs" />
     <Compile Include="model\seres\planta\Planta.cs" />
     <Compile Include="model\seres\Ser.cs" />
-    <Compile Include="view\screen\MyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="view\screen\MyForm.Designer.cs">
-      <DependentUpon>MyForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="logica\seresServices\AnimalesServices\IAnimalService.cs" />
@@ -83,16 +77,40 @@
     <Compile Include="logica\providers\RandomProvider.cs" />
     <Compile Include="logica\seresServices\AnimalesServices\GacelaService.cs" />
     <Compile Include="logica\seresServices\AnimalesServices\LeonService.cs" />
-    <Compile Include="logica\viewService\ISafariService.cs" />
+    <Compile Include="logica\mainService\ISafariService.cs" />
     <Compile Include="logica\seresServices\ISerVivoService.cs" />
     <Compile Include="logica\seresServices\PlantaServices\ArbustoService.cs" />
     <Compile Include="logica\tools\Tools.cs" />
     <Compile Include="logica\tools\ToolsAnimales.cs" />
+    <Compile Include="view\screen\MyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\screen\MyForm.Designer.cs">
+      <DependentUpon>MyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ventanasAyuda\AcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ventanasAyuda\AcercaDe.Designer.cs">
+      <DependentUpon>AcercaDe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ventanasAyuda\AyudaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ventanasAyuda\AyudaForm.Designer.cs">
+      <DependentUpon>AyudaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\ventanasModales\ParametroForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="view\ventanasModales\ParametroForm.Designer.cs">
       <DependentUpon>ParametroForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\ventanasModales\StatsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\ventanasModales\StatsForm.Designer.cs">
+      <DependentUpon>StatsForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -102,12 +120,22 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="view\screen\MyForm.resx">
       <DependentUpon>MyForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="view\ventanasAyuda\AcercaDe.resx">
+      <DependentUpon>AcercaDe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\ventanasAyuda\AyudaForm.resx">
+      <DependentUpon>AyudaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\ventanasModales\ParametroForm.resx">
       <DependentUpon>ParametroForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\ventanasModales\StatsForm.resx">
+      <DependentUpon>StatsForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -123,6 +151,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="resources\icons\end.png" />
+    <Content Include="resources\icons\pause.png" />
+    <Content Include="resources\icons\play.png" />
+    <Content Include="resources\icons\setting.png" />
+    <Content Include="resources\icons\stats.png" />
+    <Content Include="resources\icons\stop.png" />
     <Content Include="resources\img\arbusto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -132,6 +166,8 @@
     <Content Include="resources\img\leon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="resources\start.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
