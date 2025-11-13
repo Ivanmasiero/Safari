@@ -207,10 +207,14 @@ namespace Safari.view.ventanasModales
             // 
             this.nTamaño.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nTamaño.Location = new System.Drawing.Point(1341, 76);
+            this.nTamaño.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
             this.nTamaño.Name = "nTamaño";
             this.nTamaño.Size = new System.Drawing.Size(120, 31);
             this.nTamaño.TabIndex = 3;
-            this.nTamaño.Maximum = 20;
             // 
             // lTamaño
             // 
@@ -691,6 +695,7 @@ namespace Safari.view.ventanasModales
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1602, 847);
             this.Controls.Add(this.contenedor);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ParametroForm";
             this.Text = "ParametroForm";
             this.contenedor.ResumeLayout(false);

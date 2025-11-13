@@ -31,5 +31,6 @@ namespace Safari.view.ventanasModales
         {
             this.Close();
         }
+  
     }
 }

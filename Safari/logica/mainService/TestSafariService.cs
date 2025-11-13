@@ -52,7 +52,7 @@ namespace Safari.controller
             //inicializamos los parametros por defecto
             parametroArbusto = new int[] { 2 }; //tiempo de reproduccion por defecto 2
             parametroGacela = new int[] { 4, 3, 5 }; //tiempo de reproduccion por defecto 4, max hambre 3, velocidad 5  
-            parametroLeon = new int[] { 6, 3, 5 }; //tiempo de reproduccion por defecto 6, max hambre 3, velocidad 5
+            parametroLeon = new int[] { 6, 3, 6 }; //tiempo de reproduccion por defecto 6, max hambre 3, velocidad 6
             //parametros del safari por defecto
             int filas =  10;
             int columnas = 10;
@@ -254,10 +254,24 @@ namespace Safari.controller
         //método para el movimiento de los animales
         private void movimientoAnimales()
         {
-            //creamos una lista auxiliar para evitar la modificación de la colección mientras se itera sobre ella
-            List<Ser> seresComidos = new List<Ser>();
-            //recorremos todos los seres vivos del safari
+
+            //creamos una lista auxiliar de seres vivos que sean animales
+            List<Animal> animales = new List<Animal>();
+            //recorremos todos los seres vivos del safari y guardamos los animales
             foreach (Ser ser in controlador.getSeresVivos())
+            {
+                Type tipoDeSer = ser.GetType();
+                //si el ser es un animal lo movemos
+                if (typeof(Animal).IsAssignableFrom(tipoDeSer))
+                {
+                    animales.Add((Animal)ser);
+
+                }
+            }
+            //ordenamos la lista de animales por velocidad descendente
+            animales = animales.OrderByDescending(a => a.getVelocidad()).ToList();
+            //recorremos la lista de animales ordenada por velocidad
+            foreach (Animal ser in animales)
             {
                 //guardamos el tipo del ser
                 Type tipoSer = ser.GetType();
@@ -266,18 +280,22 @@ namespace Safari.controller
                 {
                     //aumentamos el hambre del animal antes de moverse porque si come se reiniciará a 0
                     ((Animal)ser).setHambre(((Animal)ser).getHambre() + 1);
-                    //movemos el animal, pasandole una accion que añadirá a la lista de seres comidos el ser que coma
-                    service.moverse(controlador.getTablero(), ser, (comida) =>
+                    //verificamos que el animal siga vivo antes de moverlo, ya que pudo haber sido comido por otro animal más rápido
+                    if (ser.getEstado().Equals("vivo"))
                     {
-                        seresComidos.Add(comida);
-                    });
+                        //movemos el animal, pasandole una accion que añadirá a la lista de seres comidos el ser que coma
+                        service.moverse(controlador.getTablero(), ser, (comida) =>
+                        {
+                            //matamos al ser comido
+                            service.morir(comida);
+                            //añadimos el ser comido a la lista de seres comidos
+                            controlador.getSeresVivos().Remove(comida);
+                            //añadimos el ser comido a la lista de seres muertos
+                            controlador.getSeresMuertos().Add(comida);
+                        });
+                    }
+
                 }
-            }
-            //eliminamos los seres comidos de la lista de seres vivos del safari
-            foreach (Ser comida in seresComidos)
-            {
-                controlador.getSeresVivos().Remove(comida);
-                controlador.getSeresMuertos().Add(comida);
             }
         }
 
